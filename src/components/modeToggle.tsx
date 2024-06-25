@@ -18,7 +18,7 @@ type ThemeOption = {
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
-  console.log(theme);
+
   const themeOptions: ThemeOption[] = [
     { label: "Light", value: "light" },
     { label: "Dark", value: "dark" },
