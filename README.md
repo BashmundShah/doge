@@ -22,3 +22,14 @@ To run the project in development mode, use the following command:
 npm run dev
 ```
 This will start the development server and open the application in your default web browser.
+
+### Building for Production
+To build the project for production, use the following command:
+```sh
+npm run build
+```
+
+### Previewing the Build
+After building the project for production, you can preview the build on your local machine by running the following command:
+```sh
+npm run preview
