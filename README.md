@@ -1,15 +1,10 @@
 # Doge
 
-Welcome to the Doge project! This project is a React-based web application that showcases various dog breeds with details. It's built with Vite, TailwindCSS for styling, shadCn for UI library and leverages a custom React context for state management.
+Welcome to the Doge project! This project is a React-based web application that showcases various dog breeds with details using [Dog API](https://dog.ceo/dog-api/documentation/breed). It's built with Vite, TailwindCSS for styling, shadcn/ui for UI library and leverages a custom React context for state management.
 
 ## Getting Started
 
 To get started with the Doge project, follow these steps:
-
-### Prerequisites
-
-- Node.js installed on your machine.
-- A package manager like npm or pnpm.
 
 ### Installation
 
