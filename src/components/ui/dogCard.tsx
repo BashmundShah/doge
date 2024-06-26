@@ -1,18 +1,23 @@
+import { fetchRandomgDogImageByBreed } from "@/api/api";
 import { capitalize } from "@/lib/utils";
+import { Dog } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 
-export default function DogCard({ breed }: { breed: string }) {
+type DogCardProps = {
+  breed: string;
+};
+
+export default function DogCard({ breed }: DogCardProps) {
   const [imageUrl, setImageUrl] = useState("");
   const cardRef = useRef<HTMLDivElement>(null);
+  const isSelected = useParams().breed === breed;
 
   useEffect(() => {
-    const fetchImage = async () => {
-      const response = await fetch(
-        `https://dog.ceo/api/breed/${breed}/images/random`
-      );
-      const data = await response.json();
-      if (data.status === "success") {
-        setImageUrl(data.message);
+    const setImage = async () => {
+      const { message, status } = await fetchRandomgDogImageByBreed(breed);
+      if (status === "success") {
+        setImageUrl(message);
       }
     };
 
@@ -21,7 +26,7 @@ export default function DogCard({ breed }: { breed: string }) {
       (entries) => {
         entries.forEach((entry) => {
           if (currentCardRef && entry.isIntersecting) {
-            fetchImage();
+            setImage();
             observer.unobserve(currentCardRef);
           }
         });
@@ -43,7 +48,11 @@ export default function DogCard({ breed }: { breed: string }) {
   return (
     <div
       ref={cardRef}
-      className="flex flex-col justify-center bg-card items-center px-4 py-5 border border-solid border-border rounded-lg w-60 cursor-pointer hover:shadow hover:-translate-y-1 hover:scale-105 transition-transform duration-200 hover:border-primary"
+      className={`flex flex-col justify-center bg-card items-center px-4 py-5 border border-solid border-border rounded-lg w-60 cursor-pointer hover:shadow hover:-translate-y-1 hover:scale-105 transition-transform duration-200 hover:border-primary ${
+        isSelected
+          ? "ring ring-primary dark:ring-0 dark:shadow-lg dark:shadow-primary"
+          : ""
+      }`}
     >
       {imageUrl ? (
         <img
@@ -53,7 +62,9 @@ export default function DogCard({ breed }: { breed: string }) {
           loading="lazy"
         />
       ) : (
-        <div className="rounded-lg h-48 w-48 animate-pulse bg-accent" />
+        <div className="rounded-lg h-48 w-48 bg-accent flex justify-center items-center">
+          <Dog className="h-16 w-16" />
+        </div>
       )}
       <span className="text-base mt-4">{capitalize(breed)}</span>
     </div>

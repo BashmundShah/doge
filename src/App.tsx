@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import "./App.css";
 import Navbar from "@/components/navbar";
 import Home from "@/components/home";
@@ -9,7 +8,6 @@ function App() {
       <Navbar />
       <div className="h-full overflow-y-auto">
         <Home />
-        <Outlet />
       </div>
     </div>
   );

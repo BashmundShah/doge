@@ -1,34 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
 import { Loader, ServerCrash } from "lucide-react";
 import DogCard from "./ui/dogCard";
+import { Link, Outlet, useParams } from "react-router-dom";
+import { useBreeds } from "@/context/useBreed";
 
 export default function Home() {
-  const [breeds, setBreeds] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const fetchBreeds = useCallback(() => {
-    setIsLoading(true);
-    fetch("https://dog.ceo/api/breeds/list/all")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === "success") {
-          setBreeds(data.message);
-        } else {
-          throw new Error("Unable to fetch breeds.");
-        }
-      })
-      .catch((error) => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetchBreeds();
-  }, [fetchBreeds]);
+  const breed = useParams().breed;
+  const { breeds, isLoading, error } = useBreeds();
 
   if (isLoading)
     return (
@@ -49,10 +26,19 @@ export default function Home() {
     );
 
   return (
-    <div className="flex flex-wrap justify-center items-center my-8 gap-x-4 gap-y-6">
-      {Object.keys(breeds).map((breed) => (
-        <DogCard key={breed} breed={breed} />
-      ))}
+    <div className="h-full flex overflow-hidden">
+      <div
+        className={`flex-wrap justify-center items-center py-8 gap-x-4 gap-y-6 w-full grow overflow-y-auto ${
+          breed ? "sm:flex hidden" : "flex"
+        }`}
+      >
+        {Object.keys(breeds).map((breed) => (
+          <Link to={breed}>
+            <DogCard key={breed} breed={breed} />
+          </Link>
+        ))}
+      </div>
+      <Outlet />
     </div>
   );
 }

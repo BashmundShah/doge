@@ -4,6 +4,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./theme/themeProvider.tsx";
+import BreedDetails from "./components/breedDetails.tsx";
+import BreedProvider from "./context/breedProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +13,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "about",
-        element: <div>About</div>,
+        path: "/:breed",
+        element: <BreedDetails />,
       },
     ],
   },
@@ -21,7 +23,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <BreedProvider>
+        <RouterProvider router={router} />
+      </BreedProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

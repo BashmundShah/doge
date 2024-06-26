@@ -39,7 +39,7 @@ export function ModeToggle() {
           <DropdownMenuItem
             key={option.value}
             onClick={() => setTheme(option.value)}
-            className={`${
+            className={`cursor-pointer ${
               option.value === theme ? "bg-primary text-primary-foreground" : ""
             }`}
           >
