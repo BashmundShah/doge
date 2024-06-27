@@ -53,6 +53,15 @@ export default function DogCard({ breed }: DogCardProps) {
           ? "ring ring-primary dark:ring-0 dark:shadow-lg dark:shadow-primary"
           : ""
       }`}
+      onClick={() => {
+        setTimeout(() => {
+          if (cardRef.current)
+            cardRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+        }, 200);
+      }}
     >
       {imageUrl ? (
         <img
