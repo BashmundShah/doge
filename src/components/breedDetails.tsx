@@ -3,17 +3,22 @@ import { Button } from "./ui/button";
 import { Dog, X } from "lucide-react";
 import { useBreeds } from "@/context/useBreed";
 import { capitalize } from "@/lib/utils";
+import { useEffect } from "react";
 
 export default function BreedDetails() {
-  const breed = useParams().breed;
+  const breed = useParams().breed ?? "";
   const navigate = useNavigate();
   const { breeds } = useBreeds();
 
   // Redirect to home if breed is not a string or not in the breeds list
-  if (typeof breed !== "string" || !breeds[breed]) {
-    navigate("/");
-    return null;
-  }
+
+  useEffect(() => {
+    if (!breeds[breed]) {
+      // navigate to home
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [breed, breeds]);
 
   const subBreeds = breeds[breed];
 
@@ -23,7 +28,7 @@ export default function BreedDetails() {
         <span className="text-3xl font-mono text-center w-full">
           {capitalize(breed)}
         </span>
-        {subBreeds.length ? (
+        {subBreeds?.length ? (
           <div className="flex flex-col space-y-2 grow overflow-y-auto">
             <span className="text-xl">Sub-breeds:</span>
             <div className="grid md:grid-cols-2 lg:grid-cols-3">

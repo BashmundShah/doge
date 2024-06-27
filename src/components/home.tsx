@@ -32,8 +32,8 @@ export default function Home() {
           breed ? "sm:flex hidden" : "flex"
         }`}
       >
-        {Object.keys(breeds).map((breed) => (
-          <Link to={breed}>
+        {Object.keys(breeds).map((breed, index) => (
+          <Link to={breed} key={index}>
             <DogCard key={breed} breed={breed} />
           </Link>
         ))}

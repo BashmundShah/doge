@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./theme/themeProvider.tsx";
 import BreedDetails from "./components/breedDetails.tsx";
 import BreedProvider from "./context/breedProvider.tsx";
+import NotFound from "./components/notFound.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
         element: <BreedDetails />,
       },
     ],
+    errorElement: <NotFound />,
   },
 ]);
 
